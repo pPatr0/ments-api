@@ -1,0 +1,49 @@
+{
+  "name": "fullapi2026",
+  "version": "1.0.0",
+  "description": "MongoDB Express Node TypeScript REST API",
+  "homepage": "https://github.com/pPatr0/ments-api#readme",
+  "nodemonConfig": {
+    "verbose": false,
+    "watch": [
+      "src"
+    ],
+    "ext": "js,ts",
+    "exec": "npx ts-node ./src/index.ts",
+    "ignore": [
+      "node_modules"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/pPatr0/ments-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pPatr0/ments-api.git"
+  },
+  "license": "ISC",
+  "author": "patriksevcik",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build":"rm -rf ./dist && tsc",
+    "start-dev": "npx nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cross-env": "^10.1.0",
+    "dotenv-flow": "^4.1.0",
+    "express": "^5.2.1",
+    "joi": "^18.0.2",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.1",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/joi": "^17.2.2",
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
