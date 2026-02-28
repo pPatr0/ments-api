@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+export async function testConnection() {
+    try {
+        await connect();
+        await disconnect();
+        console.log("Test connection successful");
+    }
+    catch (error) {
+        console.log("Test connection failed. Error: " + error);
+    }
+}
 
 
 export async function connect() {
@@ -20,5 +30,15 @@ export async function connect() {
     }
     catch (error) {
         console.log("Error connecting to the database. Erorr: " + error);
+    }
+}
+
+
+export async function disconnect() {
+    try {
+        await mongoose.disconnect();
+        console.log("Database connection is closed");
+    } catch (error) {
+        console.log("Error disconnecting from the database. Error: " + error);
     }
 }

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import dotenvFlow from 'dotenv-flow';
-import { connect } from './repository/database';
+import { testConnection } from './repository/database';
 
 import routes from './routes';
 
@@ -9,15 +9,21 @@ dotenvFlow.config();
 // create express application
 const app: Application = express();
 
-app.use('/api', routes)
 /*
 
 */
 
 export async function startServer() { // Přidat async
+    
+
+    app.use(express.json()); // Middleware pro parsování JSON těla požadavků
+
+    // bind routes to the application
+    app.use('/api', routes);
+
     try {
-        await connect(); // Přidat await – tohle je zásadní!
-        
+        testConnection(); // Otestovat připojení k databázi před spuštěním serveru
+
         const PORT: number = parseInt(process.env.PORT as string) || 4000;
         app.listen(PORT, () => {
             console.log("Server is running on port: " + PORT);
