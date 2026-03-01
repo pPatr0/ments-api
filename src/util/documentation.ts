@@ -1,0 +1,76 @@
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSdoc from 'swagger-jsdoc';
+import { Application } from 'express';
+
+
+/**
+ * setup swagger documentation for the API
+ * @param app 
+ */
+export function setupDocs(app: Application) {
+    // swagger definition
+  const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+      title: 'MENTS-API',
+      version: '1.0.0',
+      description: 'MongoDB Express Node TypeScript REST API',
+    },
+    servers: [
+      {
+        url: 'http://localhost:4000/api/',
+        description: 'Local development server',
+      },
+      {
+        url: 'https://ments-api-kex4.onrender.com/api/',
+        description: 'Remote development server',
+      }
+    ],
+    components: {
+      securitySchemes: {
+        ApiKeyAuth: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'auth-token',
+        },
+      },
+      schemas: {
+        Product: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            description: { type: 'string' },
+            imageURL: { type: 'string' },
+            price: { type: 'number' },
+            stock: { type: 'number' },
+            discount: { type: 'boolean' },
+            discountPct: { type: 'number' },
+            isHidden: { type: 'boolean' },
+            _createdBy: { type: 'string' },
+          },
+        },
+        User: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            name: { type: 'string' },
+            email: { type: 'string' },
+            password: { type: 'string' },
+            registerDate: { type: 'string' },
+          },
+        },
+      },
+    }
+  }
+    // Swagger options
+  const option = {
+    swaggerDefinition,
+    //path to the files cotaining openAPI definitions
+    apis: ['**/*.ts']
+  }
+
+    // swagger specification
+    const swaggerSpec = swaggerJSdoc(option);
+    // create docs route
+    app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}

@@ -1,34 +1,58 @@
-import express, { Application, Request, Response } from 'express';
+
+import express, { Application } from 'express';
 import dotenvFlow from 'dotenv-flow';
 import { testConnection } from './repository/database';
-
 import routes from './routes';
+import { setupDocs } from './util/documentation';
+import cors from 'cors';
 
 dotenvFlow.config();
 
 // create express application
 const app: Application = express();
 
-/*
+/**
+ * Setup CORS handling
+ */
+function setupCors() {
 
-*/
+  app.use(cors({
 
-export async function startServer() { // Přidat async
+    // Allow request from any origin
+    origin: "*",
+
+    // allow HTTP methods
+    methods: 'GET, PUT, POST, DELETE',
+
+    // allow headers
+    allowedHeaders: ['auth-token', 'Origin', 'X-Requested-Width', 'Content-Type', 'Accept'],
+
+    // allow credentials
+    credentials:true
+  }))
+}
+
+/**
+ * 
+ */
+export function startServer() {
+
+  setupCors();
     
+  // JSON body parser
+  app.use(express.json());
 
-    app.use(express.json()); // Middleware pro parsování JSON těla požadavků
+  // bind routes to the app
+  app.use('/api', routes);
 
-    // bind routes to the application
-    app.use('/api', routes);
+  setupDocs(app);
 
-    try {
-        testConnection(); // Otestovat připojení k databázi před spuštěním serveru
+  // test the connection to the database
+  testConnection();
 
-        const PORT: number = parseInt(process.env.PORT as string) || 4000;
-        app.listen(PORT, () => {
-            console.log("Server is running on port: " + PORT);
-        });
-    } catch (err) {
-        console.error("Nepodařilo se spustit server kvůli chybě DB:", err);
-    }
+  // start the server
+  const PORT: number = parseInt(process.env.PORT as string) || 4000;
+  app.listen(PORT, function () {
+    console.log("Server is up and running on port: " + PORT);
+  });
 }

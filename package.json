@@ -26,23 +26,36 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "build":"rm -rf ./dist && tsc",
+    "build": "rm -rf ./dist && tsc",
     "start-dev": "npx nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "brcypt": "^1.0.1",
+    "cors": "^2.8.6",
     "cross-env": "^10.1.0",
     "dotenv-flow": "^4.1.0",
     "express": "^5.2.1",
     "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
     "mongoose": "^9.2.1",
-    "nodemon": "^3.1.14"
+    "node-cron": "^4.2.1",
+    "nodemon": "^3.1.14",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.3.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
